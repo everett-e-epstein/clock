@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock">
+            <div class="clock-face">
+                <!-- Dynamic time text labels -->
+                <div class="time-labels" id="time-labels"></div>
+                
+                <!-- Rotating concentric circles -->
+                <div class="circle minute-circle" id="minute-circle">
+                    <div class="circle-marker"></div>
+                </div>
+                <div class="circle hour-circle" id="hour-circle">
+                    <div class="circle-marker"></div>
+                </div>
+                <!-- Second hand -->
+                <div class="second-hand" id="second-hand"></div>
+                <div class="center-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hourWords = [
+            'twelve', 'one', 'two', 'three', 'four', 'five',
+            'six', 'seven', 'eight', 'nine', 'ten', 'eleven'
+        ];
+
+        const minuteWords = [
+            'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+            'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+            'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five', 'twenty-six', 'twenty-seven', 'twenty-eight', 'twenty-nine',
+            'thirty', 'thirty-one', 'thirty-two', 'thirty-three', 'thirty-four', 'thirty-five', 'thirty-six', 'thirty-seven', 'thirty-eight', 'thirty-nine',
+            'forty', 'forty-one', 'forty-two', 'forty-three', 'forty-four', 'forty-five', 'forty-six', 'forty-seven', 'forty-eight', 'forty-nine',
+            'fifty', 'fifty-one', 'fifty-two', 'fifty-three', 'fifty-four', 'fifty-five', 'fifty-six', 'fifty-seven', 'fifty-eight', 'fifty-nine'
+        ];
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Handle 12 o'clock
+            if (hours === 0) hours = 12;
+
+            // Calculate rotation angles
+            const hourAngle = ((hours % 12) * 30) + (minutes * 0.5);
+            const minuteAngle = (minutes * 6) + (seconds * 0.1);
+            const secondAngle = seconds * 6;
+
+            // Update circle positions
+            document.getElementById('hour-circle').style.transform = `rotate(${hourAngle}deg)`;
+            document.getElementById('minute-circle').style.transform = `rotate(${minuteAngle}deg)`;
+            document.getElementById('second-hand').style.transform = `rotate(${secondAngle}deg)`;
+
+            // Update text labels
+            const hourText = hourWords[hours % 12];
+            const minuteText = minuteWords[minutes];
+
+            const labelsContainer = document.getElementById('time-labels');
+            labelsContainer.innerHTML = `
+                <div class="hour-marker" style="--rotation: ${hourAngle}deg;">
+                    <span class="hour-text">${hourText}</span>
+                </div>
+                <div class="minute-marker" style="--rotation: ${minuteAngle}deg;">
+                    <span class="minute-text">${minuteText}</span>
+                </div>
+            `;
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+    </script>
+</body>
+</html>

@@ -55,7 +55,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background-color: #b8b8b8;
+    background-color: #8a8a8a;
 }
 
 .time-labels {
@@ -64,6 +64,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 20;
 }
 
 .hour-marker,
@@ -87,15 +88,15 @@ body {
     top: 40px;
     left: 50%;
     transform: translateX(-50%) rotate(calc(-1 * var(--rotation)));
-    color: #2d2d2d;
+    color: #d3d3d3;
     font-size: 60px;
 }
 
 .minute-text {
-    top: 120px;
+    top: 300px;
     left: 50%;
     transform: translateX(-50%) rotate(calc(-1 * var(--rotation)));
-    color: #ffffff;
+    color: #8a8a8a;
     font-size: 60px;
 }
 
@@ -110,10 +111,10 @@ body {
 }
 
 .minute-circle {
-    width: 340px;
-    height: 340px;
-    margin-left: -170px;
-    margin-top: -170px;
+    width: 620px;
+    height: 620px;
+    margin-left: -310px;
+    margin-top: -310px;
     background:  #fff;
     /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); */
 }
@@ -123,7 +124,7 @@ body {
     height: 240px;
     margin-left: -120px;
     margin-top: -120px;
-    background:  #000000;
+    /* background:  #000000; */
 }
 
 .circle-marker {
